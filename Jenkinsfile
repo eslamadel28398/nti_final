@@ -27,7 +27,7 @@ pipeline {
 
   
     // Building Docker images
-    stage('Building image') {
+    stage('Building frontend image') {
       steps{
         script {
           sh "docker build -t ${REPOSITORY_URI_front}:$BUILD_NUMBER docker_part/3tier-nodejs/frontend"
@@ -36,7 +36,7 @@ pipeline {
     }
    
     // Uploading Docker images into AWS ECR
-    stage('Pushing to ECR') {
+    stage('Pushing frontend to ECR') {
      steps{  
          script {
           
@@ -44,5 +44,26 @@ pipeline {
          }
         }
       }
+    stage('Building backend image') {
+      steps{
+        script {
+          sh "docker build -t ${REPOSITORY_URI_back}:$BUILD_NUMBER docker_part/3tier-nodejs/backend"
+        }
+      }
     }
+
+    // Uploading Docker backend images into AWS ECR
+    stage('Pushing backend to ECR') {
+     steps{  
+         script {
+          
+                sh "docker push ${REPOSITORY_URI_back}:$BUILD_NUMBER"
+         }
+        }
+      }
+
+  
+    }
+
 }
+
