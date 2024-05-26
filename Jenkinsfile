@@ -65,8 +65,6 @@ pipeline {
           }
        stage('Update Deployment File') {
 
-
-withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')]) {
     
 
             steps {
@@ -83,8 +81,8 @@ withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')])
                sh "git commit -m 'Update the deployment file with the new image : ${env.BUILD_NUMBER}'"
                sh "git push https://${GIT_USERNAME}:${deploy_repo}@github.com/${GIT_USERNAME}/https://github.com/eslamadel28398/final-project.git/ HEAD:main"
                 
-    }
-}
+ 
+ }
 
 
             }
