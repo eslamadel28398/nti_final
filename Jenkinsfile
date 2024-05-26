@@ -78,7 +78,7 @@ withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')])
                sh "git config user.email eslamadel28398@gmail.com"
                sh "git config user.name eslamadel"
                sh "sed -i 's|image: .*$|image: ${REPOSITORY_URI_front}:$BUILD_NUMBER|' kubernetes_part/1-frontend.yml"
-               sh" sed -i 's|image: .*$|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|' kubernetes_part/2-backend.yml"
+               sh "sed -i 's|image: .*$|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|' kubernetes_part/2-backend.yml"
                sh "git add ."
                sh "git commit -m 'Update the deployment file with the new image : ${env.BUILD_NUMBER}'"
                sh "git push https://${GIT_USERNAME}:${deploy_repo}@github.com/${GIT_USERNAME}/https://github.com/eslamadel28398/final-project.git/ HEAD:main"
