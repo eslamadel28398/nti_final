@@ -93,5 +93,11 @@ pipeline {
   
   }
 
+        post {
+        success {
+            build job: 'cd'
+        }
+    }
+
 }
 
