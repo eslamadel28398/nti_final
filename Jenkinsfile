@@ -64,6 +64,7 @@ pipeline {
             }
           }
 
+
        stage('Update Deployment File') {
             steps {
                 // Update the deployment file with the new image name
@@ -71,8 +72,10 @@ pipeline {
 
                 withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')]) {
     
-               sh "git fetch origin https://${GIT_USERNAME}:${deploy_repo}@github.com/eslamadel28398/final-project.git/"
-               sh "git fetch origin https://${GIT_USERNAME}:${deploy_repo}@github.com/eslamadel28398/final-project.git/"
+               sh "git remote set-url origin https://${GIT_USERNAME}:${deploy_repo}@github.com/eslamadel28398/final-project.git/ HEAD:main"
+
+               sh "git fetch origin main"
+               sh "git fetch origin main"
                sh "git config user.email eslamadel28398@gmail.com"
                sh "git config user.name eslamadel"
                sh "sed -i 's|image: .*|image: ${REPOSITORY_URI_front}:$BUILD_NUMBER|g' kubernetes_part/1-frontend.yml"
