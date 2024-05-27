@@ -76,8 +76,8 @@ pipeline {
 
                sh "git config user.email eslamadel28398@gmail.com"
                sh "git config user.name eslamadel"
-               sh "sed -i 's|image: .*|image: ${REPOSITORY_URI_front}:$BUILD_NUMBER|g' kubernetes_part/1-frontend.yml"
-               sh "sed -i 's|image: .*|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|g' kubernetes_part/2-backend.yml"
+               sh "sed -i 's|image:.*|image: ${REPOSITORY_URI_front}:$BUILD_NUMBER|g' kubernetes_part/1-frontend.yml"
+               sh "sed -i 's|image:.*|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|g' kubernetes_part/2-backend.yml"
                sh "git add ."
                sh "git commit -m 'Update the deployment file with the new image : ${env.BUILD_NUMBER}'"
                sh "git push origin main"
