@@ -64,10 +64,6 @@ pipeline {
             }
           }
 
-
-withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')]) {
-    // some block
-}
        stage('Update Deployment File') {
             steps {
                 // Update the deployment file with the new image name
