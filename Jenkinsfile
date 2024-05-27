@@ -63,27 +63,31 @@ pipeline {
             }
             }
           }
+
+
+withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')]) {
+    // some block
+}
        stage('Update Deployment File') {
-
-    
-
             steps {
                 // Update the deployment file with the new image name
 
 
                 withCredentials([string(credentialsId: 'deploy_repo', variable: 'deploy_repo')]) {
     
+               sh "git fetch origin https://${GIT_USERNAME}:${deploy_repo}@github.com/eslamadel28398/final-project.git/"
+               sh "git fetch origin https://${GIT_USERNAME}:${deploy_repo}@github.com/eslamadel28398/final-project.git/"
                sh "git config user.email eslamadel28398@gmail.com"
                sh "git config user.name eslamadel"
-               sh "sed -i 's|image: .*|image: ${REPOSITORY_URI_front}:$BUILD_NUMBER|g' kubernetes_part/1-frontend.yml"
-               sh "sed -i 's|image: .*|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|g' kubernetes_part/2-backend.yml"
-               sh "git remote set-url origin https://${GIT_USERNAME}:${deploy_repo}@github.com/${GIT_USERNAME}/final-project.git"
+               sh "sed -i 's|image: .*$|image: ${REPOSITORY_URI_front}:$BUILD_NUMBER|g' kubernetes_part/1-frontend.yml"
+               sh "sed -i 's|image: .*$|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|g' kubernetes_part/2-backend.yml"
+               sh "git remote set-url origin https://${GIT_USERNAME}:${deploy_repo}@github.com/eslamadel28398/final-project.git/ HEAD:main"
                sh "git add ."
                sh "git commit -m 'Update the deployment file with the new image : ${env.BUILD_NUMBER}'"
                sh "git push origin HEAD:main"
                 
- 
- }
+
+}
 
 
             }
