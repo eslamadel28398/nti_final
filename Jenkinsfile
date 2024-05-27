@@ -80,7 +80,7 @@ pipeline {
                sh "sed -i 's|image:.*|image: ${REPOSITORY_URI_back}:$BUILD_NUMBER|g' kubernetes_part/2-backend.yml"
                sh "git add ."
                sh "git commit -m 'Update the deployment file with the new image : ${env.BUILD_NUMBER}'"
-               sh "git push origin main"
+               sh "git push origin HEAD:main"
                 
 
 }
